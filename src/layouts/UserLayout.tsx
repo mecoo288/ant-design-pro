@@ -7,6 +7,8 @@ import { formatMessage } from 'umi-plugin-react/locale';
 
 import SelectLang from '@/components/SelectLang';
 import { ConnectProps, ConnectState } from '@/models/connect';
+import setting from '../../config/defaultSettings';
+
 import logo from '../assets/logo.svg';
 import styles from './UserLayout.less';
 
@@ -47,10 +49,10 @@ const UserLayout: React.SFC<UserLayoutProps> = props => {
             <div className={styles.header}>
               <Link to="/">
                 <img alt="logo" className={styles.logo} src={logo} />
-                <span className={styles.title}>Ant Design</span>
+                <span className={styles.title}>{setting.title}</span>
               </Link>
             </div>
-            <div className={styles.desc}>Ant Design 是西湖区最具影响力的 Web 设计规范</div>
+            <div className={styles.desc}>{setting.subTile}</div>
           </div>
           {children}
         </div>
