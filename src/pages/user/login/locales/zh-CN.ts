@@ -1,7 +1,7 @@
 export default {
   'user-login.login.userName': '用户名',
   'user-login.login.password': '密码',
-  'user-login.login.message-invalid-credentials': '账户或密码错误（admin/ant.design）',
+  'user-login.login.message-invalid-credentials': '账户或密码错误',
   'user-login.login.message-invalid-verification-code': '验证码错误',
   'user-login.login.tab-login-credentials': '账户密码登录',
   'user-login.login.tab-login-mobile': '手机号登录',
@@ -61,14 +61,5 @@ export default {
   'user-login.invites.placeholder': '请直接 @姓名／工号，最多可邀请 5 人',
   'user-login.weight.label': '权重',
   'user-login.weight.placeholder': '请输入',
-  'user-login.public.label': '目标公开',
-  'user-login.label.help': '客户、邀评人默认被分享',
-  'user-login.radio.public': '公开',
-  'user-login.radio.partially-public': '部分公开',
-  'user-login.radio.private': '不公开',
-  'user-login.publicUsers.placeholder': '公开给',
-  'user-login.option.A': '同事甲',
-  'user-login.option.B': '同事乙',
-  'user-login.option.C': '同事丙',
   'user-login.navBar.lang': '语言',
 };

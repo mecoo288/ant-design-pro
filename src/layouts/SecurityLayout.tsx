@@ -34,11 +34,12 @@ class SecurityLayout extends React.Component<SecurityLayoutProps, SecurityLayout
   render() {
     const { isReady } = this.state;
     const { children, loading, currentUser } = this.props;
-    if ((!currentUser.userid && loading) || !isReady) {
+
+    if ((!currentUser.id && loading) || !isReady) {
       return <PageLoading />;
     }
-    if (!currentUser.userid) {
-      return <Redirect to="/user/login"></Redirect>;
+    if (!currentUser.id) {
+      return <Redirect to="/user/login" />;
     }
     return children;
   }
