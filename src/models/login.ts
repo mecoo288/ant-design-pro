@@ -2,6 +2,7 @@ import { Reducer } from 'redux';
 import { routerRedux } from 'dva/router';
 import { Effect } from 'dva';
 import { stringify } from 'querystring';
+import Cookies from 'universal-cookie';
 
 import { fakeAccountLogin, getFakeCaptcha } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
@@ -25,6 +26,11 @@ export interface LoginModelType {
     changeLoginStatus: Reducer<StateType>;
   };
 }
+
+const cookies = new Cookies();
+
+const USER_KEY = 'user_info';
+const TOKEN_KEY = 'auth_token';
 
 const Model: LoginModelType = {
   namespace: 'login',
@@ -66,6 +72,10 @@ const Model: LoginModelType = {
     },
     *logout(_, { put }) {
       const { redirect } = getPageQuery();
+      // 删除token
+      cookies.remove(TOKEN_KEY, { maxAge: -1, path: '/' });
+      cookies.remove(USER_KEY, { maxAge: -1, path: '/' });
+
       // redirect
       if (window.location.pathname !== '/user/login' && !redirect) {
         yield put(
