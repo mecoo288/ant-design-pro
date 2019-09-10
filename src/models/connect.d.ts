@@ -5,6 +5,7 @@ import { GlobalModelState } from './global';
 import { DefaultSettings as SettingModelState } from '../../config/defaultSettings';
 import { UserModelState } from './user';
 import { LoginModelType } from './login';
+import { MenuModelState } from './menu';
 
 export { GlobalModelState, SettingModelState, UserModelState };
 
@@ -21,6 +22,7 @@ export interface Loading {
 }
 
 export interface ConnectState {
+  menu: MenuModelState;
   global: GlobalModelState;
   loading: Loading;
   settings: SettingModelState;

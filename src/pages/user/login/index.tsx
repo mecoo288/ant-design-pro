@@ -29,7 +29,7 @@ interface LoginState {
   userLogin: login,
   submitting: loading.effects['login/login'],
 }))
-class Login extends Component<LoginProps, LoginState> {
+export default class Login extends Component<LoginProps, LoginState> {
   loginForm: FormComponentProps['form'] | undefined | null = undefined;
 
   state: LoginState = {
@@ -201,5 +201,3 @@ class Login extends Component<LoginProps, LoginState> {
     );
   }
 }
-
-export default Login;
