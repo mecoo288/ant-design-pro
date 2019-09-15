@@ -21,4 +21,9 @@ export const isAntDesignProOrDev = (): boolean => {
   return isAntDesignPro();
 };
 
+// 获取非Undefined字符串
+export function getNoUndefinedString(obj: string) {
+  return obj ? obj : '';
+}
+
 export const getPageQuery = () => parse(window.location.href.split('?')[1]);
