@@ -214,6 +214,7 @@ export default class extends React.PureComponent {
           {/* 查询条件 */}
           <div>{this.renderSearchForm()}</div>
         </div>
+        {/* 删除条幅 */}
         <div className={css.alert}>
           <Alert
             message={
@@ -230,7 +231,7 @@ export default class extends React.PureComponent {
             showIcon
           />
         </div>
-        {/* 删除条幅 */}
+
         <div className={css.body}>
           <SideLayout
             title="所属部门"
