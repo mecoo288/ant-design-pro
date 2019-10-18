@@ -36,11 +36,6 @@
     "test:all": "node ./tests/run-tests.js",
     "test:component": "umi test ./src/components"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint-staged"
-    }
-  },
   "lint-staged": {
     "**/*.less": "stylelint --syntax less",
     "**/*.{js,jsx,tsx,ts,less,md,json}": [
@@ -104,7 +99,7 @@
     "@types/react": "^16.9.5",
     "@types/react-document-title": "^2.0.3",
     "@types/react-dom": "^16.9.1",
-    "@umijs/fabric": "^1.1.10",
+    "@umijs/fabric": "^1.2.0",
     "chalk": "^2.4.2",
     "check-prettier": "^1.0.3",
     "cross-env": "^6.0.3",

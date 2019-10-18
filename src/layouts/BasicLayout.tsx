@@ -2,11 +2,13 @@ import ProLayout, {
   MenuDataItem,
   BasicLayoutProps as ProLayoutProps,
   Settings,
+  DefaultFooter,
 } from '@ant-design/pro-layout';
 import React, { useEffect } from 'react';
 import Link from 'umi/link';
 import { Dispatch } from 'redux';
 import { connect } from 'dva';
+import { Icon } from 'antd';
 import { formatMessage } from 'umi-plugin-react/locale';
 
 // import Authorized from '@/utils/Authorized';
