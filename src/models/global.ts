@@ -14,6 +14,7 @@ export interface NoticeItem extends NoticeIconData {
 export interface GlobalModelState {
   collapsed: boolean;
   notices: NoticeItem[];
+  dict: Object;
 }
 
 export interface GlobalModelType {
@@ -25,6 +26,7 @@ export interface GlobalModelType {
     changeNoticeReadState: Effect;
   };
   reducers: {
+    updateState: Reducer<GlobalModelState>;
     changeLayoutCollapsed: Reducer<GlobalModelState>;
     saveNotices: Reducer<GlobalModelState>;
     saveClearedNotices: Reducer<GlobalModelState>;
@@ -38,6 +40,7 @@ const GlobalModel: GlobalModelType = {
   state: {
     collapsed: false,
     notices: [],
+    dict: {},
   },
 
   effects: {
@@ -102,6 +105,12 @@ const GlobalModel: GlobalModelType = {
   },
 
   reducers: {
+    updateState(state, { payload }) {
+      return {
+        ...state,
+        ...payload,
+      };
+    },
     changeLayoutCollapsed(state = { notices: [], collapsed: true }, { payload }): GlobalModelState {
       return {
         ...state,
