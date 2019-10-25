@@ -11,10 +11,10 @@ import { connect } from 'dva';
 import { Icon } from 'antd';
 import { formatMessage } from 'umi-plugin-react/locale';
 
-// import Authorized from '@/utils/Authorized';
+// import Authorized from '@src/utils/Authorized';
 import { Icon } from 'antd';
-import RightContent from '@/components/GlobalHeader/RightContent';
-import { ConnectState } from '@/models/connect';
+import RightContent from '@src/components/GlobalHeader/RightContent';
+import { ConnectState } from '@src/models/connect';
 import logo from '../assets/logo.svg';
 
 export interface BasicLayoutProps extends ProLayoutProps {
