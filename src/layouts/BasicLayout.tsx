@@ -19,6 +19,9 @@ export interface BasicLayoutProps extends ProLayoutProps {
   breadcrumbNameMap: {
     [path: string]: MenuDataItem;
   };
+  route: ProLayoutProps['route'] & {
+    authority: string[];
+  };
   settings: Settings;
   dispatch: Dispatch;
 }
@@ -28,18 +31,6 @@ export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {
   };
 };
 
-/**
- * use Authorized check all menu item
- * 再过滤一次菜单以处理权限
- */
-// const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
-// menuList.map(item => {
-//   const localItem = {
-//     ...item,
-//     children: item.children ? menuDataRender(item.children) : [],
-//   };
-//   return Authorized.check(item.authority, localItem, null) as MenuDataItem;
-// });
 
 const footerRender: BasicLayoutProps['footerRender'] = () => (
   <>
@@ -49,6 +40,7 @@ const footerRender: BasicLayoutProps['footerRender'] = () => (
         borderTop: '1.5px solid #00abff ',
         padding: '8px',
         textAlign: 'center',
+        margin: '-24px -24px 0px'
       }}
     >
       Copyright <Icon type="copyright" /> 2019 By PKAQ
@@ -69,7 +61,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
       });
     }
   }, []);
-
   /**
    * init variables
    */
@@ -84,11 +75,16 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
 
   return (
     <ProLayout
-      style={{ marginBottom: -24 }}
       logo={logo}
+      menuHeaderRender={(logoDom, titleDom) => (
+        <Link to="/">
+          {logoDom}
+          {titleDom}
+        </Link>
+      )}
       onCollapse={handleMenuCollapse}
       menuItemRender={(menuItemProps, defaultDom) => {
-        if (menuItemProps.isUrl) {
+        if (menuItemProps.isUrl || menuItemProps.children) {
           return defaultDom;
         }
         return <Link to={menuItemProps.path}>{defaultDom}</Link>;

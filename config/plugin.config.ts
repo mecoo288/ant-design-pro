@@ -25,7 +25,7 @@ function getModulePackageName(module: { context: string }) {
 }
 
 export default (config: any) => {
-  // è®¾ç½® alias
+  // ÉèÖÃ alias
   config.resolve.alias.set('@src', path.resolve(__dirname, '../src'));
   config.resolve.alias.set('@config', path.resolve(__dirname, '../config'));
   // preview.pro.ant.design only do not use in your production;
@@ -36,8 +36,8 @@ export default (config: any) => {
     config.plugin('webpack-theme-color-replacer').use(ThemeColorReplacer, [
       {
         fileName: 'css/theme-colors-[contenthash:8].css',
-        matchColors: getAntdSerials('#1890ff'), // ä¸»è‰²ç³»åˆ—
-        // æ”¹å˜æ ·å¼é€‰æ‹©å™¨ï¼Œè§£å†³æ ·å¼è¦†ç›–é—®é¢˜
+        matchColors: getAntdSerials('#1890ff'), // Ö÷É«ÏµÁÐ
+        // ¸Ä±äÑùÊ½Ñ¡ÔñÆ÷£¬½â¾öÑùÊ½¸²¸ÇÎÊÌâ
         changeSelector(selector: string): string {
           switch (selector) {
             case '.ant-calendar-today .ant-calendar-date':
@@ -54,7 +54,7 @@ export default (config: any) => {
       },
     ]);
   }
-  // æ‰“åŒ…ä¼˜åŒ– uglifyjs-webpack-plugin é…ç½®
+  // ´ò°üÓÅ»¯ uglifyjs-webpack-plugin ÅäÖÃ
   if (process.env.NODE_ENV === 'production') {
     config.merge({
       plugin: {
@@ -65,13 +65,13 @@ export default (config: any) => {
               sourceMap: false,
               uglifyOptions: {
                 compress: {
-                  // åˆ é™¤æ‰€æœ‰çš„ `console` è¯­å¥
+                  // É¾³ýËùÓÐµÄ `console` Óï¾ä
                   drop_console: true,
                 },
                 output: {
-                  // æœ€ç´§å‡‘çš„è¾“å‡º
+                  // ×î½ô´ÕµÄÊä³ö
                   beautify: false,
-                  // åˆ é™¤æ‰€æœ‰çš„æ³¨é‡Š
+                  // É¾³ýËùÓÐµÄ×¢ÊÍ
                   comments: false,
                 },
               },
@@ -123,7 +123,7 @@ export default (config: any) => {
 const getAntdSerials = (color: string) => {
   const lightNum = 9;
   const devide10 = 10;
-  // æ·¡åŒ–ï¼ˆå³lessçš„tintï¼‰
+  // µ­»¯£¨¼´lessµÄtint£©
   const lightens = new Array(lightNum).fill(undefined).map((_, i: number) => {
     return ThemeColorReplacer.varyColor.lighten(color, i / devide10);
   });
