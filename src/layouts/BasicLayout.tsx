@@ -34,17 +34,17 @@ export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {
 
 const footerRender: BasicLayoutProps['footerRender'] = () => (
   <>
-    <div
+    <footer
       style={{
         backgroundColor: '#fff',
         borderTop: '1.5px solid #00abff ',
         padding: '8px',
         textAlign: 'center',
-        margin: '-24px -24px 0px'
+        margin: '0 -24px 0'
       }}
     >
       Copyright <Icon type="copyright" /> 2019 By PKAQ
-    </div>
+    </footer>
   </>
 );
 
