@@ -27,7 +27,7 @@ function getModulePackageName(module: { context: string }) {
 }
 
 export const webpackPlugin = (config: IWebpackChainConfig) => {
-  // ���� alias
+  // 设置 alias
   config.resolve.alias.set('@src', path.resolve(__dirname, '../src'));
   config.resolve.alias.set('@config', path.resolve(__dirname, '../config'));
   // preview.pro.ant.design only do not use in your production;
@@ -38,8 +38,8 @@ export const webpackPlugin = (config: IWebpackChainConfig) => {
     config.plugin('webpack-theme-color-replacer').use(ThemeColorReplacer, [
       {
         fileName: 'css/theme-colors-[contenthash:8].css',
-        matchColors: getAntdSerials('#1890ff'), // ��ɫϵ��
-        // �ı���ʽѡ�����������ʽ��������
+        matchColors: getAntdSerials('#1890ff'), // 主色系列
+        // 改变样式选择器，解决样式覆盖问题
         changeSelector(selector: string): string {
           switch (selector) {
             case '.ant-calendar-today .ant-calendar-date':
@@ -56,7 +56,7 @@ export const webpackPlugin = (config: IWebpackChainConfig) => {
       },
     ]);
   }
-  // ����Ż� uglifyjs-webpack-plugin ����
+  // 打包优化 uglifyjs-webpack-plugin 配置
   if (process.env.NODE_ENV === 'production') {
     config.merge({
       plugin: {
@@ -67,13 +67,13 @@ export const webpackPlugin = (config: IWebpackChainConfig) => {
               sourceMap: false,
               uglifyOptions: {
                 compress: {
-                  // ɾ�����е� `console` ���
+                  // 删除所有的 `console` 语句
                   drop_console: true,
                 },
                 output: {
-                  // ����յ����
+                  // 最紧凑的输出
                   beautify: false,
-                  // ɾ�����е�ע��
+                  // 删除所有的注释
                   comments: false,
                 },
               },
@@ -125,7 +125,7 @@ export const webpackPlugin = (config: IWebpackChainConfig) => {
 const getAntdSerials = (color: string) => {
   const lightNum = 9;
   const devide10 = 10;
-  // ��������less��tint��
+  // 淡化（即less的tint）
   const lightens = new Array(lightNum).fill(undefined).map((_, i: number) => {
     return ThemeColorReplacer.varyColor.lighten(color, i / devide10);
   });
