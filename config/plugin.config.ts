@@ -5,6 +5,8 @@ import ThemeColorReplacer from 'webpack-theme-color-replacer';
 import generate from '@ant-design/colors/lib/generate';
 import path from 'path';
 
+import * as IWebpackChainConfig from 'webpack-chain';
+
 function getModulePackageName(module: { context: string }) {
   if (!module.context) return null;
 
@@ -24,8 +26,8 @@ function getModulePackageName(module: { context: string }) {
   return packageName;
 }
 
-export default (config: any) => {
-  // ÉèÖÃ alias
+export const webpackPlugin = (config: IWebpackChainConfig) => {
+  // ï¿½ï¿½ï¿½ï¿½ alias
   config.resolve.alias.set('@src', path.resolve(__dirname, '../src'));
   config.resolve.alias.set('@config', path.resolve(__dirname, '../config'));
   // preview.pro.ant.design only do not use in your production;
@@ -36,8 +38,8 @@ export default (config: any) => {
     config.plugin('webpack-theme-color-replacer').use(ThemeColorReplacer, [
       {
         fileName: 'css/theme-colors-[contenthash:8].css',
-        matchColors: getAntdSerials('#1890ff'), // Ö÷É«ÏµÁÐ
-        // ¸Ä±äÑùÊ½Ñ¡ÔñÆ÷£¬½â¾öÑùÊ½¸²¸ÇÎÊÌâ
+        matchColors: getAntdSerials('#1890ff'), // ï¿½ï¿½É«Ïµï¿½ï¿½
+        // ï¿½Ä±ï¿½ï¿½ï¿½Ê½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         changeSelector(selector: string): string {
           switch (selector) {
             case '.ant-calendar-today .ant-calendar-date':
@@ -54,7 +56,7 @@ export default (config: any) => {
       },
     ]);
   }
-  // ´ò°üÓÅ»¯ uglifyjs-webpack-plugin ÅäÖÃ
+  // ï¿½ï¿½ï¿½ï¿½Å»ï¿½ uglifyjs-webpack-plugin ï¿½ï¿½ï¿½ï¿½
   if (process.env.NODE_ENV === 'production') {
     config.merge({
       plugin: {
@@ -65,13 +67,13 @@ export default (config: any) => {
               sourceMap: false,
               uglifyOptions: {
                 compress: {
-                  // É¾³ýËùÓÐµÄ `console` Óï¾ä
+                  // É¾ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ `console` ï¿½ï¿½ï¿½
                   drop_console: true,
                 },
                 output: {
-                  // ×î½ô´ÕµÄÊä³ö
+                  // ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½
                   beautify: false,
-                  // É¾³ýËùÓÐµÄ×¢ÊÍ
+                  // É¾ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½×¢ï¿½ï¿½
                   comments: false,
                 },
               },
@@ -123,7 +125,7 @@ export default (config: any) => {
 const getAntdSerials = (color: string) => {
   const lightNum = 9;
   const devide10 = 10;
-  // µ­»¯£¨¼´lessµÄtint£©
+  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½lessï¿½ï¿½tintï¿½ï¿½
   const lightens = new Array(lightNum).fill(undefined).map((_, i: number) => {
     return ThemeColorReplacer.varyColor.lighten(color, i / devide10);
   });

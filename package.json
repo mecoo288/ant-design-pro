@@ -52,8 +52,7 @@
     "not ie <= 10"
   ],
   "dependencies": {
-    "@ant-design/dark-theme": "1.0.3",
-    "@ant-design/pro-layout": "4.8.3",
+    "@ant-design/pro-layout": "^4.8.7",
     "@antv/data-set": "^0.10.2",
     "antd": "^3.24.2",
     "antd-password-input-strength": "^1.1.1",
@@ -161,6 +160,7 @@
     "ignore": [
       ".dockerignore",
       ".git",
+      ".github",
       ".gitpod.yml",
       "Dockerfile",
       "Dockerfile.*",
