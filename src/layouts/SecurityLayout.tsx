@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
+import { PageLoading } from '@ant-design/pro-layout';
 import { Redirect } from 'umi';
 import { stringify } from 'querystring';
 import Cookies from 'universal-cookie';
@@ -11,8 +12,8 @@ import defaultSettings from '@config/defaultSettings';
 const cookies = new Cookies();
 
 interface SecurityLayoutProps extends ConnectProps {
-  loading: boolean;
-  currentUser: CurrentUser;
+  loading?: boolean;
+  currentUser?: CurrentUser;
 }
 
 interface SecurityLayoutState {

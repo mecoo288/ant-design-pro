@@ -1,7 +1,7 @@
 import { Reducer } from 'redux';
-import { routerRedux } from 'dva/router';
 import { Effect } from 'dva';
 import { stringify } from 'querystring';
+import router from 'umi/router';
 import Cookies from 'universal-cookie';
 
 import { login } from '@src/services/login';
@@ -65,22 +65,21 @@ const Model: LoginModelType = {
         // yield put(routerRedux.replace(redirect || '/'));
       }
     },
-    *logout(_, { put }) {
+
+    logout() {
       const { redirect } = getPageQuery();
-      // åˆ é™¤token
+      // É¾³ýtoken
       cookies.remove(TOKEN_KEY, { maxAge: -1, path: '/' });
       cookies.remove(USER_KEY, { maxAge: -1, path: '/' });
 
       // redirect
       if (window.location.pathname !== '/user/login' && !redirect) {
-        yield put(
-          routerRedux.replace({
-            pathname: '/user/login',
-            search: stringify({
-              redirect: window.location.href,
-            }),
+        router.replace({
+          pathname: '/user/login',
+          search: stringify({
+            redirect: window.location.href,
           }),
-        );
+        });
       }
     },
   },

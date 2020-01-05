@@ -17,7 +17,7 @@ const { Tab, UserName, Password, Mobile, Captcha, Submit } = LoginComponents;
 interface LoginProps {
   dispatch: Dispatch<AnyAction>;
   userLogin: StateType;
-  submitting: boolean;
+  submitting?: boolean;
 }
 interface LoginState {
   type: string;
@@ -94,7 +94,7 @@ export default class Login extends Component<LoginProps, LoginState> {
   );
 
   render() {
-    const { userLogin, submitting } = this.props;
+    const { userLogin = {}, submitting } = this.props;
     const { status, type: loginType } = userLogin;
     const { type, autoLogin } = this.state;
     return (
@@ -190,7 +190,7 @@ export default class Login extends Component<LoginProps, LoginState> {
           <Submit loading={submitting}>
             <FormattedMessage id="user-login.login.login" />
           </Submit>
-          {/* 鏆傛椂鏃犻渶鍏朵粬鐧诲綍鏂瑰紡 */}
+          {/* 暂时无需其他登录方式 */}
           {/* <div className={styles.other}>
             <FormattedMessage id="user-login.login.sign-in-with" />
             <Icon type="alipay-circle" className={styles.icon} theme="outlined" />
