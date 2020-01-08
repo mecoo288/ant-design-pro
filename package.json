@@ -59,6 +59,7 @@
     "antx": "^1.3.2",
     "classnames": "^2.2.6",
     "dva": "^2.6.0-beta.16",
+    "cmn-utils": "^1.0.9",
     "dva-model-extend": "^0.1.2",
     "dynamic-icon": "^0.1.4",
     "events": "^3.0.0",
