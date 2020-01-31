@@ -10,6 +10,7 @@ const { pwa } = defaultSettings;
 const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION } = process.env;
 
 const plugins: IPlugin[] = [
+  ['umi-plugin-antd-icon-config', {}],
   [
     'umi-plugin-react',
     {

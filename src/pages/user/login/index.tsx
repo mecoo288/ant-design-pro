@@ -5,6 +5,7 @@ import md5 from 'md5';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import { Dispatch, AnyAction } from 'redux';
 import { FormComponentProps } from 'antd/es/form';
+import { Link } from 'umi';
 import { connect } from 'dva';
 import { StateType } from '@src/models/login';
 import LoginComponents from './components/Login';
