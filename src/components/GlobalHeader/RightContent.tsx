@@ -1,4 +1,4 @@
-import { Icon, Tooltip } from 'antd';
+import { Icon, Tooltip, Tag } from 'antd';
 import React from 'react';
 import { connect } from 'dva';
 import screenfull from 'screenfull';
@@ -16,11 +16,18 @@ export interface GlobalHeaderRightProps extends ConnectProps {
   layout: 'sidemenu' | 'topmenu';
 }
 
-export class GlobalHeaderRight extends React.Component<GlobalHeaderRightProps> {
+const ENVTagColor = {
+  dev: 'orange',
+  test: 'green',
+  pre: '#87d068',
+};
+const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
   state = {
     fullscreen: 0,
-  };
+  }
 
+  const { theme, layout } = props;
+  let className = styles.right;
   f11 = () => {
     this.setState({
       fullscreen: screenfull.isFullscreen ? 0 : 1,
@@ -30,7 +37,7 @@ export class GlobalHeaderRight extends React.Component<GlobalHeaderRightProps> {
 
   render() {
     const fullscreenIcon = ['fullscreen', 'fullscreen-exit'];
-    const fullscreenText = ['ÂÖ®Â±è', 'ÈÄÄÂá∫ÂÖ®Â±è'];
+    const fullscreenText = ['»´∆¡', 'ÕÀ≥ˆ»´∆¡'];
     const { fullscreen } = this.state;
 
     const { theme, layout } = this.props;
@@ -42,7 +49,7 @@ export class GlobalHeaderRight extends React.Component<GlobalHeaderRightProps> {
 
     return (
       <div className={className}>
-        {/* ÂÖ®Â±è */}
+        {/* »´∆¡ */}
         <Tooltip title={fullscreenText[fullscreen]}>
           <span className={styles.action} onClick={() => this.f11()}>
             <Icon type={fullscreenIcon[fullscreen]} />
@@ -54,21 +61,15 @@ export class GlobalHeaderRight extends React.Component<GlobalHeaderRightProps> {
             id: 'component.globalHeader.help',
           })}
         >
-          <a
-            target="_blank"
-            href="https://pro.ant.design/docs/getting-started"
-            rel="noopener noreferrer"
-            className={styles.action}
-          >
-            <Icon type="question-circle-o" />
-          </a>
-        </Tooltip>
-        <Avatar menu />
-        {setting.i18n && <SelectLang className={styles.action} />}
-      </div>
-    );
-  }
-}
+          <Icon type="question-circle-o" />
+        </a>
+      </Tooltip>
+      <Avatar />
+      {REACT_APP_ENV && <Tag color={ENVTagColor[REACT_APP_ENV]}>{REACT_APP_ENV}</Tag>}
+      <SelectLang className={styles.action} />
+    </div>
+  );
+};
 
 export default connect(({ settings }: ConnectState) => ({
   theme: settings.navTheme,

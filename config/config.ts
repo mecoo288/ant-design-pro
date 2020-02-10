@@ -2,12 +2,14 @@ import { IConfig, IPlugin } from 'umi-types';
 import pageRoutes from './router.config';
 import defaultSettings from './defaultSettings'; // https://umijs.org/config/
 import slash from 'slash2';
-import webpackPlugin from './plugin.config';
+import themePluginConfig from './themePluginConfig';
+import proxy from './proxy';
+
 const { pwa } = defaultSettings;
 
 // preview.pro.ant.design only do not use in your production ;
 // preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
-const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION } = process.env;
+const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION, REACT_APP_ENV } = process.env;
 
 const plugins: IPlugin[] = [
   ['umi-plugin-antd-icon-config', {}],
@@ -81,6 +83,7 @@ export default {
     "@menu-dark-item-active-bg":"#37373d"
   },
   define: {
+    REACT_APP_ENV: REACT_APP_ENV || false,
     ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION:
       ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION || '', // preview.pro.ant.design only do not use in your production ; preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
   },
@@ -105,9 +108,7 @@ export default {
       ) {
         return localName;
       }
-
       const match = context.resourcePath.match(/src(.*)/);
-
       if (match && match[1]) {
         const antdProPath = match[1].replace('.less', '');
         const arr = slash(antdProPath)
@@ -116,7 +117,6 @@ export default {
           .map((a: string) => a.toLowerCase());
         return `antd-pro${arr.join('-')}-${localName}`.replace(/--/g, '-');
       }
-
       return localName;
     },
   },

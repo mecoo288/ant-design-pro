@@ -15,7 +15,7 @@
     "docker:dev": "docker-compose -f ./docker/docker-compose.dev.yml up",
     "docker:push": "npm run docker-hub:build && npm run docker:tag && docker push antdesign/ant-design-pro",
     "docker:tag": "docker tag ant-design-pro antdesign/ant-design-pro",
-    "fetch:blocks": "pro fetch-blocks",
+    "fetch:blocks": "pro fetch-blocks && npm run prettier",
     "format-imports": "import-sort --write '**/*.{js,jsx,ts,tsx}'",
     "functions:build": "netlify-lambda build ./lambda",
     "functions:run": "cross-env NODE_ENV=dev netlify-lambda serve ./lambda",
@@ -31,19 +31,24 @@
     "prettier": "prettier -c --write \"**/*\"",
     "site": "npm run fetch:blocks && npm run build && npm run functions:build",
     "start": "umi dev",
+    "dev": "npm run start:dev",
+    "start:dev": "cross-env REACT_APP_ENV=dev MOCK=none umi dev",
     "start:no-mock": "cross-env MOCK=none umi dev",
     "start:no-ui": "cross-env UMI_UI=none umi dev",
+    "start:pre": "cross-env REACT_APP_ENV=pre MOCK=none umi dev",
+    "start:test": "cross-env REACT_APP_ENV=test MOCK=none umi dev",
     "test": "umi test",
-    "tsc": "tsc",
     "test:all": "node ./tests/run-tests.js",
-    "test:component": "umi test ./src/components"
+    "test:component": "umi test ./src/components",
+    "tsc": "tsc",
+    "ui": "umi ui"
   },
   "lint-staged": {
     "**/*.less": "stylelint --syntax less",
+    "**/*.{js,jsx,ts,tsx}": "npm run lint-staged:js",
     "**/*.{js,jsx,tsx,ts,less,md,json}": [
       "prettier --write"
-    ],
-    "**/*.{js,jsx,ts,tsx}": "npm run lint-staged:js"
+    ]
   },
   "browserslist": [
     "> 1%",
@@ -51,7 +56,7 @@
     "not ie <= 10"
   ],
   "dependencies": {
-    "@ant-design/pro-layout": "^4.10.0",
+    "@ant-design/pro-layout": "^4.10.13",
     "@antv/data-set": "^0.10.2",
     "antd": "^3.26.2",
     "antd-password-input-strength": "^1.1.1",
@@ -92,7 +97,7 @@
     "xlsx": "^0.15.3"
   },
   "devDependencies": {
-    "@ant-design/pro-cli": "^1.0.15",
+    "@ant-design/pro-cli": "^1.0.18",
     "@types/classnames": "^2.2.9",
     "@types/express": "^4.17.2",
     "@types/history": "^4.7.3",
@@ -103,7 +108,7 @@
     "@types/react-document-title": "^2.0.3",
     "@types/react-dom": "^16.9.4",
     "@types/react-helmet": "^5.0.14",
-    "@umijs/fabric": "2.0.0",
+    "@umijs/fabric": "^2.0.2",
     "chalk": "^3.0.0",
     "check-prettier": "^1.0.3",
     "cross-env": "^6.0.3",

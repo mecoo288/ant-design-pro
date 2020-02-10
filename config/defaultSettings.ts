@@ -60,6 +60,8 @@ export default {
   token_key: 'auth_token',
   user_key: 'user_info',
   navTheme: 'dark',
+  // 拂晓蓝
+  primaryColor: '#1890ff',
   layout: 'sidemenu',
   contentWidth: 'Fluid',
   fixedHeader: true,
