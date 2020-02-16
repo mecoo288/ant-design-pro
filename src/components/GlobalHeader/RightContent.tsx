@@ -4,7 +4,6 @@ import { connect } from 'dva';
 import screenfull from 'screenfull';
 import { formatMessage } from 'umi-plugin-react/locale';
 import { ConnectProps, ConnectState } from '@src/models/connect';
-import setting from '../../../config/defaultSettings';
 
 import Avatar from './AvatarDropdown';
 import SelectLang from '../SelectLang';
@@ -21,13 +20,12 @@ const ENVTagColor = {
   test: 'green',
   pre: '#87d068',
 };
-const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
+export class GlobalHeaderRight extends React.Component<GlobalHeaderRightProps> {
   state = {
     fullscreen: 0,
   }
 
-  const { theme, layout } = props;
-  let className = styles.right;
+
   f11 = () => {
     this.setState({
       fullscreen: screenfull.isFullscreen ? 0 : 1,
@@ -36,8 +34,10 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
   };
 
   render() {
+
+
     const fullscreenIcon = ['fullscreen', 'fullscreen-exit'];
-    const fullscreenText = ['»´∆¡', 'ÕÀ≥ˆ»´∆¡'];
+    const fullscreenText = ['ÂÖ®Â±è', 'ÈÄÄÂá∫ÂÖ®Â±è'];
     const { fullscreen } = this.state;
 
     const { theme, layout } = this.props;
@@ -48,28 +48,36 @@ const GlobalHeaderRight: React.SFC<GlobalHeaderRightProps> = props => {
     }
 
     return (
-      <div className={className}>
-        {/* »´∆¡ */}
-        <Tooltip title={fullscreenText[fullscreen]}>
-          <span className={styles.action} onClick={() => this.f11()}>
-            <Icon type={fullscreenIcon[fullscreen]} />
-          </span>
-        </Tooltip>
+        <div className={className}>
+      {/* ÂÖ®Â±è */}
+          <Tooltip title={fullscreenText[fullscreen]}>
+            <span className={styles.action} onClick={() => this.f11()}>
+              <Icon type={fullscreenIcon[fullscreen]} />
+            </span>
+          </Tooltip>
 
-        <Tooltip
-          title={formatMessage({
-            id: 'component.globalHeader.help',
-          })}
-        >
-          <Icon type="question-circle-o" />
-        </a>
-      </Tooltip>
-      <Avatar />
-      {REACT_APP_ENV && <Tag color={ENVTagColor[REACT_APP_ENV]}>{REACT_APP_ENV}</Tag>}
-      <SelectLang className={styles.action} />
-    </div>
-  );
-};
+          <Tooltip
+            title={formatMessage({
+              id: 'component.globalHeader.help',
+            })}
+          >
+            <a
+            target="_blank"
+            href="https://pro.ant.design/docs/getting-started"
+            rel="noopener noreferrer"
+            className={styles.action}
+          >
+            <Icon type="question-circle-o" />
+          </a>
+
+        </Tooltip>
+        <Avatar />
+        {REACT_APP_ENV && <Tag color={ENVTagColor[REACT_APP_ENV]}>{REACT_APP_ENV}</Tag>}
+        <SelectLang className={styles.action} />
+      </div>
+    )
+  };
+}
 
 export default connect(({ settings }: ConnectState) => ({
   theme: settings.navTheme,

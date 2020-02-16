@@ -2,8 +2,10 @@ import { IConfig, IPlugin } from 'umi-types';
 import pageRoutes from './router.config';
 import defaultSettings from './defaultSettings'; // https://umijs.org/config/
 import slash from 'slash2';
-import themePluginConfig from './themePluginConfig';
+
 import proxy from './proxy';
+
+import webpackPlugin from './plugin.config';
 
 const { pwa } = defaultSettings;
 
@@ -124,14 +126,6 @@ export default {
     basePath: '/',
   },
   chainWebpack: webpackPlugin,
-  proxy: {
-    '/api/': {
-      target: 'http://localhost:9009/api/',
-      changeOrigin: true,
-      pathRewrite: {
-        '^/api': '',
-      },
-    },
-  },
+  proxy: proxy[REACT_APP_ENV || 'dev'],
   treeShaking: true,
 } as IConfig;
