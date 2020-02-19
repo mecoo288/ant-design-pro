@@ -4,6 +4,7 @@ import { Subscription, Effect } from 'dva';
 import { NoticeIconData } from '@src/components/NoticeIcon';
 import { queryNotices } from '@src/services/user';
 import { ConnectState } from './connect.d';
+import { repwd } from '../services/user';
 
 export interface NoticeItem extends NoticeIconData {
   id: string;
@@ -15,6 +16,7 @@ export interface GlobalModelState {
   collapsed: boolean;
   notices: NoticeItem[];
   dict: Object;
+  repwd: boolean;
 }
 
 export interface GlobalModelType {
@@ -22,6 +24,7 @@ export interface GlobalModelType {
   state: GlobalModelState;
   effects: {
     fetchNotices: Effect;
+    repwd: Effect;
     clearNotices: Effect;
     changeNoticeReadState: Effect;
   };
@@ -41,6 +44,7 @@ const GlobalModel: GlobalModelType = {
     collapsed: false,
     notices: [],
     dict: {},
+    repwd: false,
   },
 
   effects: {
@@ -60,6 +64,18 @@ const GlobalModel: GlobalModelType = {
           unreadCount,
         },
       });
+    },
+    // 修改密码
+    *repwd({ payload }, { put, call }) {
+      const res = yield call(repwd, payload);
+      if(res && res.success){
+        yield put({
+          type: 'updateState',
+          payload: {
+            repwd: false,
+          },
+        });
+      }
     },
     *clearNotices({ payload }, { put, select }) {
       yield put({
