@@ -1,10 +1,10 @@
-import { Icon, Tooltip, Tag } from 'antd';
+import { Tooltip, Tag } from 'antd';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 import React from 'react';
 import { connect } from 'dva';
 import screenfull from 'screenfull';
 import { formatMessage } from 'umi-plugin-react/locale';
 import { ConnectProps, ConnectState } from '@src/models/connect';
-
 import Avatar from './AvatarDropdown';
 import styles from './index.less';
 

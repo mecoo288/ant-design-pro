@@ -21,7 +21,7 @@ function getModulePackageName(module: { context: string }) {
   return packageName;
 }
 
-export default(config: IWebpackChainConfig) => {
+const webpackPlugin = (config: IWebpackChainConfig) => {
   config.resolve.alias.set('@src', path.resolve(__dirname, '..','src'));
   config.resolve.alias.set('@config', path.resolve(__dirname, '..','config'));
   // optimize chunks
@@ -43,6 +43,7 @@ export default(config: IWebpackChainConfig) => {
                 'gg-editor',
                 'g6',
                 '@antv',
+                'l7',
                 'gg-editor-core',
                 'bizcharts-plugin-slider',
               ].includes(packageName);
@@ -62,7 +63,7 @@ export default(config: IWebpackChainConfig) => {
       },
     });
 
-     // æ‰“åŒ…ä¼˜åŒ– uglifyjs-webpack-plugin é…ç½®
+     // ´ò°üÓÅ»¯ uglifyjs-webpack-plugin ÅäÖÃ
   if (process.env.NODE_ENV === 'prod') {
     config.merge({
       plugin: {
@@ -73,13 +74,13 @@ export default(config: IWebpackChainConfig) => {
               sourceMap: false,
               uglifyOptions: {
                 compress: {
-                  // åˆ é™¤æ‰€æœ‰çš„ `console` è¯­å¥
+                  // É¾³ýËùÓÐµÄ `console` Óï¾ä
                   drop_console: true,
                 },
                 output: {
-                  // æœ€ç´§å‡‘çš„è¾“å‡º
+                  // ×î½ô´ÕµÄÊä³ö
                   beautify: false,
-                  // åˆ é™¤æ‰€æœ‰çš„æ³¨é‡Š
+                  // É¾³ýËùÓÐµÄ×¢ÊÍ
                   comments: false,
                 },
               },
@@ -90,3 +91,5 @@ export default(config: IWebpackChainConfig) => {
     });
   }
 };
+
+export default webpackPlugin;

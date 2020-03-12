@@ -2,9 +2,8 @@ import { DefaultFooter, MenuDataItem, getMenuData, getPageTitle } from '@ant-des
 import { Helmet } from 'react-helmet';
 import { Link } from 'umi';
 import React from 'react';
-import { connect } from 'dva';
 import { formatMessage } from 'umi-plugin-react/locale';
-
+import { connect } from 'dva';
 import SelectLang from '@src/components/SelectLang';
 import { ConnectProps, ConnectState } from '@src/models/connect';
 import setting from '../../config/defaultSettings';
@@ -12,7 +11,9 @@ import logo from '../assets/logo.svg';
 import styles from './UserLayout.less';
 
 export interface UserLayoutProps extends ConnectProps {
-  breadcrumbNameMap: { [path: string]: MenuDataItem };
+  breadcrumbNameMap: {
+    [path: string]: MenuDataItem;
+  };
 }
 
 const UserLayout: React.FC<UserLayoutProps> = props => {
@@ -31,8 +32,8 @@ const UserLayout: React.FC<UserLayoutProps> = props => {
   const { breadcrumb } = getMenuData(routes);
   const title = getPageTitle({
     pathname: location.pathname,
-    breadcrumb,
     formatMessage,
+    breadcrumb,
     ...props,
   });
   return (
@@ -64,6 +65,4 @@ const UserLayout: React.FC<UserLayoutProps> = props => {
   );
 };
 
-export default connect(({ settings }: ConnectState) => ({
-  ...settings,
-}))(UserLayout);
+export default connect(({ settings }: ConnectState) => ({ ...settings }))(UserLayout);

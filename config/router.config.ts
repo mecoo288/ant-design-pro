@@ -16,12 +16,11 @@ export default [
         component: '../layouts/BasicLayout',
         routes: [
           { path: '/', redirect: '/welcome' },
-          { path: '/welcome', name: 'welcome', icon: 'smile', component: './Welcome' },
+          { path: '/welcome', name: 'welcome', component: './Welcome' },
           // 系统管理
           {
             path: '/sys',
             name: 'sys',
-            icon: 'setting',
             routes: [
               { path: '/sys/organization', name: 'organization', component: './sys/organization' },
               { path: '/sys/account', name: 'account', component: './sys/account' },

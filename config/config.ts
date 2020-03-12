@@ -1,6 +1,7 @@
 import { IConfig, IPlugin } from 'umi-types';
 import pageRoutes from './router.config';
 import defaultSettings from './defaultSettings'; // https://umijs.org/config/
+
 import slash from 'slash2';
 
 import proxy from './proxy';
@@ -12,7 +13,6 @@ const { pwa } = defaultSettings;
 // preview.pro.ant.design only do not use in your production ;
 // preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
 const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION, REACT_APP_ENV } = process.env;
-
 const plugins: IPlugin[] = [
   ['umi-plugin-antd-icon-config', {}],
   [
@@ -47,7 +47,7 @@ const plugins: IPlugin[] = [
       // dll features https://webpack.js.org/plugins/dll-plugin/
       // dll: {
       //   include: ['dva', 'dva/router', 'dva/saga', 'dva/fetch'],
-      //   exclude: ['@babel/runtime', 'netlify-lambda'],
+      //   exclude: ['@babel/runtime'],
       // },
       dll: false,
     },
@@ -82,7 +82,8 @@ export default {
     "@layout-header-background": "#1e1e1e;",
     "@menu-bg": "#1e1e1e",
     "@menu-dark-submenu-bg":"#1e1e1e",
-    "@menu-dark-item-active-bg":"#37373d"
+    "@menu-dark-item-active-bg":"#37373d",
+    'primary-color': defaultSettings.primaryColor,
   },
   define: {
     REACT_APP_ENV: REACT_APP_ENV || false,
@@ -125,7 +126,6 @@ export default {
   manifest: {
     basePath: '/',
   },
-  chainWebpack: webpackPlugin,
   proxy: proxy[REACT_APP_ENV || 'dev'],
-  treeShaking: true,
+  chainWebpack: webpackPlugin,
 } as IConfig;
