@@ -2,11 +2,11 @@ import { AlipayCircleOutlined, TaobaoCircleOutlined, WeiboCircleOutlined } from 
 import { Alert, Checkbox } from 'antd';
 import React, { useState } from 'react';
 import { Dispatch, AnyAction } from 'redux';
-import { Link } from 'umi';
 import { connect } from 'dva';
-import { StateType } from '@/models/login';
-import { LoginParamsType } from '@/services/login';
-import { ConnectState } from '@/models/connect';
+import md5 from 'md5';
+import { StateType } from '@src/models/login';
+import { LoginParamsType } from '@src/services/login';
+import { ConnectState } from '@src/models/connect';
 import LoginFrom from './components/Login';
 
 import styles from './style.less';
@@ -39,6 +39,7 @@ const Login: React.FC<LoginProps> = props => {
 
   const handleSubmit = (values: LoginParamsType) => {
     const { dispatch } = props;
+    values.password = md5(values.password);
     dispatch({
       type: 'login/login',
       payload: { ...values, type },
@@ -53,7 +54,7 @@ const Login: React.FC<LoginProps> = props => {
           )}
 
           <UserName
-            name="userName"
+            name="account"
             placeholder="用户名: admin or user"
             rules={[
               {
@@ -118,15 +119,6 @@ const Login: React.FC<LoginProps> = props => {
           </a>
         </div>
         <Submit loading={submitting}>登录</Submit>
-        <div className={styles.other}>
-          其他登录方式
-          <AlipayCircleOutlined className={styles.icon} />
-          <TaobaoCircleOutlined className={styles.icon} />
-          <WeiboCircleOutlined className={styles.icon} />
-          <Link className={styles.register} to="/user/register">
-            注册账户
-          </Link>
-        </div>
       </LoginFrom>
     </div>
   );

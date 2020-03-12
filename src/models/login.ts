@@ -62,13 +62,13 @@ const Model: LoginModelType = {
           //   return;
           // }
         }
-        // yield put(routerRedux.replace(redirect || '/'));
+        window.location.href = "/";
       }
     },
 
     logout() {
       const { redirect } = getPageQuery();
-      // É¾³ýtoken
+      // åˆ é™¤token
       cookies.remove(TOKEN_KEY, { maxAge: -1, path: '/' });
       cookies.remove(USER_KEY, { maxAge: -1, path: '/' });
 

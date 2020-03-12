@@ -8,27 +8,14 @@ import React, { useEffect } from 'react';
 import { Link } from 'umi';
 import { Dispatch } from 'redux';
 import { connect } from 'dva';
-import { GithubOutlined } from '@ant-design/icons';
-import { Result, Button } from 'antd';
 
+
+import { CopyrightCircleOutlined, RocketFilled, ProfileFilled, RadarChartOutlined, FileFilled, HomeFilled, SettingFilled, FlagFilled, BarsOutlined, UsergroupAddOutlined, FormOutlined } from '@ant-design/icons';
 // import Authorized from '@src/utils/Authorized';
 import RightContent from '@src/components/GlobalHeader/RightContent';
 import { ConnectState } from '@src/models/connect';
-import { getAuthorityFromRouter } from '@/utils/utils';
 import logo from '../assets/logo.svg';
 
-const noMatch = (
-  <Result
-    status={403}
-    title="403"
-    subTitle="Sorry, you are not authorized to access this page."
-    extra={
-      <Button type="primary">
-        <Link to="/user/login">Go Login</Link>
-      </Button>
-    }
-  />
-);
 export interface BasicLayoutProps extends ProLayoutProps {
   breadcrumbNameMap: {
     [path: string]: MenuDataItem;
@@ -44,15 +31,6 @@ export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {
     [path: string]: MenuDataItem;
   };
 };
-/**
- * use Authorized check all menu item
- */
-
-const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
-  menuList.map(item => {
-    const localItem = { ...item, children: item.children ? menuDataRender(item.children) : [] };
-    return Authorized.check(item.authority, localItem, null) as MenuDataItem;
-  });
 
 const footerRender: BasicLayoutProps['footerRender'] = () => (
   <>
@@ -67,19 +45,38 @@ const footerRender: BasicLayoutProps['footerRender'] = () => (
         textAlign: 'center',
       }}
     >
-      Copyright <Icon type="copyright" /> 2019 By PKAQ
+      Copyright <CopyrightCircleOutlined /> 2019 By PKAQ
     </footer>
   </>
 );
+
+// 菜单图标映射
+const IconMap = {
+  profile: <ProfileFilled/>,
+  'radar-chart': <RadarChartOutlined/>,
+  file: <FileFilled/>,
+  home: <HomeFilled/>,
+  setting: <SettingFilled/>,
+  flag: <FlagFilled/>,
+  bars: <BarsOutlined/>,
+  'usergroup-add': <UsergroupAddOutlined/>,
+  form: <FormOutlined/>,
+  rocket: <RocketFilled />,
+};
+// 自定义菜单渲染
+const loopMenuItem = (menus: MenuDataItem[]): MenuDataItem[] =>
+  menus.map(({ icon, children, ...item }) => ({
+    ...item,
+    icon: icon && IconMap[icon as string],
+    children: children && loopMenuItem(children),
+  }));
 
 const BasicLayout: React.FC<BasicLayoutProps> = props => {
   const {
     dispatch,
     children,
     settings,
-    location = {
-      pathname: '/',
-    },
+    menuData,
   } = props;
   /**
    * constructor
@@ -105,9 +102,6 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
     }
   }; // get children authority
 
-  const authorized = getAuthorityFromRouter(props.route.routes, location.pathname || '/') || {
-    authority: undefined,
-  };
   return (
     <ProLayout
       logo={logo}
@@ -141,9 +135,9 @@ const BasicLayout: React.FC<BasicLayoutProps> = props => {
           <span>{route.breadcrumbName}</span>
         );
       }}
-      footerRender={() => defaultFooterDom}
-      menuDataRender={() => menuData}
-      rightContentRender={() => <RightContent />}
+      footerRender={footerRender}
+      menuDataRender={() =>loopMenuItem(menuData)}
+      rightContentRender={rightProps => <RightContent {...rightProps} />}
       {...props}
       {...settings}
     >
