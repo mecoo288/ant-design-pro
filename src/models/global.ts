@@ -1,5 +1,4 @@
-import { Reducer } from 'redux';
-import { Subscription, Effect } from 'dva';
+import { Reducer, Subscription, Effect } from 'umi';
 
 import { NoticeIconData } from '@src/components/NoticeIcon';
 import { queryNotices } from '@src/services/user';

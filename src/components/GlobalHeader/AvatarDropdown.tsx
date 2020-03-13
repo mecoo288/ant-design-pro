@@ -2,9 +2,8 @@ import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons
 import { Avatar, Menu, Spin } from 'antd';
 import { ClickParam } from 'antd/es/menu';
 import React from 'react';
-import { connect } from 'dva';
-import { router } from 'umi';
-import { ConnectProps, ConnectState } from '@src/models/connect';
+import { ConnectProps, history, connect } from 'umi';
+import { ConnectState } from '@src/models/connect';
 import { CurrentUser } from '@src/models/user';
 import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
@@ -31,7 +30,7 @@ class AvatarDropdown extends React.Component<GlobalHeaderRightProps> {
 
       return;
     }
-    router.push(`/config/${key}`);
+    history.push(`/config/${key}`);
   };
 
   render(): React.ReactNode {

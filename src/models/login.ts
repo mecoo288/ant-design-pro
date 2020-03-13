@@ -1,7 +1,5 @@
-import { Reducer } from 'redux';
-import { Effect } from 'dva';
+import { history, Effect, Reducer } from 'umi';
 import { stringify } from 'querystring';
-import { router } from 'umi';
 import Cookies from 'universal-cookie';
 
 import { login } from '@src/services/login';

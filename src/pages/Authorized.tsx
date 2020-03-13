@@ -1,8 +1,7 @@
 import React from 'react';
-import { Redirect } from 'umi';
-import { connect } from 'dva';
+import { ConnectProps, Redirect, connect } from 'umi';
 import Authorized from '@src/utils/Authorized';
-import { ConnectProps, ConnectState, Route, UserModelState } from '@src/models/connect';
+import { ConnectState, Route, UserModelState } from '@src/models/connect';
 
 interface AuthComponentProps extends ConnectProps {
   user: UserModelState;

@@ -1,11 +1,9 @@
 import { DefaultFooter, MenuDataItem, getMenuData, getPageTitle } from '@ant-design/pro-layout';
 import { Helmet } from 'react-helmet';
-import { Link } from 'umi';
 import React from 'react';
-import { formatMessage } from 'umi-plugin-react/locale';
-import { connect } from 'dva';
+import { ConnectProps, useIntl, connect, Link } from 'umi';
 import SelectLang from '@src/components/SelectLang';
-import { ConnectProps, ConnectState } from '@src/models/connect';
+import { ConnectState } from '@src/models/connect';
 import setting from '../../config/defaultSettings';
 import logo from '../assets/logo.svg';
 import styles from './UserLayout.less';
@@ -29,6 +27,7 @@ const UserLayout: React.FC<UserLayoutProps> = props => {
       pathname: '',
     },
   } = props;
+  const { formatMessage } = useIntl();
   const { breadcrumb } = getMenuData(routes);
   const title = getPageTitle({
     pathname: location.pathname,
