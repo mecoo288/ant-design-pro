@@ -64,7 +64,7 @@ const GlobalModel: GlobalModelType = {
         },
       });
     },
-    // ä¿®æ”¹å¯†ç 
+    // ĞŞ¸ÄÃÜÂë
     *repwd({ payload }, { put, call }) {
       const res = yield call(repwd, payload);
       if(res && res.success){

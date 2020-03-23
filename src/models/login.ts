@@ -66,7 +66,7 @@ const Model: LoginModelType = {
 
     logout() {
       const { redirect } = getPageQuery();
-      // åˆ é™¤token
+      // É¾³ýtoken
       cookies.remove(TOKEN_KEY, { maxAge: -1, path: '/' });
       cookies.remove(USER_KEY, { maxAge: -1, path: '/' });
 
